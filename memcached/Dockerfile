@@ -4,7 +4,7 @@
 # Autor: Alejandro Palomino García
 ############################################################
 
-# Set the base image to use to Ubuntu
+# Set the base image to use to Debian
 FROM debian
 
 # Set the file maintainer (your name - the file's author)
