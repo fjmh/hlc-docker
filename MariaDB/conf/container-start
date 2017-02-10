@@ -85,7 +85,7 @@ if [[ "$ICF" = "false" ]]; then
     sleep 5
     config_db
     SPID=$(pidof mysqld)
-    while ( ! -z $SPID ); do
+    while [[ ! -z $SPID ]]; do
         sleep 5
         SPID=$(pidof mysqld)
     done;
