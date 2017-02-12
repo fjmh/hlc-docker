@@ -20,3 +20,4 @@ RUN service apache2 restart
 
 CMD ["apache2ctl","-D","FOREGROUND"]
 
+EXPOSE 80
