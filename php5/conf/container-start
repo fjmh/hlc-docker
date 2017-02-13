@@ -16,7 +16,7 @@ function initial_config () {
 
 # PHP5-FPM configuration
 
-sed -i "s/#CONTAINER_IP/$CONTAINER_IP/" /etc/php5/fpm/pool.d/www.conf
+sed -i 's/#CONTAINER_IP/$CONTAINER_IP/' /etc/php5/fpm/pool.d/www.conf
 service php5-fpm restart
 
 # Main
