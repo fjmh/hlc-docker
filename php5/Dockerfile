@@ -8,7 +8,7 @@ MAINTAINER "Alberto Andrades Gil" "alberto.andrades.gil@gmail.com"
 RUN apt update && apt upgrade -y
 
 #Install php5-fpm
-RUN apt install php5 php5-fpm php5-curl php5-mcrypt php5-mysql unzip -y
+RUN apt install php5 php5-fpm php5-curl php5-mcrypt php5-mysql php5-memcached unzip -y
 
 #Configure php5-fpm to listen on eth0 IP's at port 9000
 RUN sed -ri 's/^listen[[:space:]]*=.*/listen = #Change_IP:9000/' /etc/php5/fpm/pool.d/www.conf;\
