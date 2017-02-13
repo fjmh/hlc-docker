@@ -1,0 +1,14 @@
+#!/bin/bash
+
+ipdir=$VARNISH_PORT_6081_TCP_ADDR
+
+sed -i "s/IPVARNISH/$ipdir/g" /etc/nginx/conf.d/default.conf
+
+service nginx start
+sleep 2
+sleep 300
+SPID=$(pidof nginx)
+while [[ ! -z $SPID ]]; do
+        sleep 5
+        SPID=$(pidof nginx)
+done;
