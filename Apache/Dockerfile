@@ -2,20 +2,17 @@ from debian
 MAINTAINER Elizabeth Moreno Begines
 
 COPY sources.list /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get install apache2 -y
-RUN apt-get install libapache2-mod-fastcgi
-RUN apt-get install wget -y
-RUN apt-get install unzip -y
+RUN apt-get update && apt-get install apache2 libapache2-mod-fastcgi wget unzip -y
 COPY php5-fpm.conf /etc/apache2/conf-available/
 RUN a2enmod fastcgi actions
 RUN a2enconf php5-fpm
-RUN wget -P /tmp https://download.nextcloud.com/server/releases/nextcloud-11.0.1.zip
-RUN unzip -d /var/www /tmp/nextcloud-11.0.1.zip
-RUN chown -R www-data:www-data /var
-COPY nextcloud.conf /etc/apache2/sites-available/
+RUN wget -P /tmp https://downloads.joomla.org/es/cms/joomla3/3-6-5/joomla_3-6-5-stable-full_package-zip?format=zip
+RUN mkdir /var/www/joomla
+RUN unzip -d /var/www/joomla /tmp/Joomla_3.6.5-Stable-Full_Package.zip
+RUN chown -R www-data:www-data /var/www
+COPY joomla.conf /etc/apache2/sites-available/
 RUN a2dissite 000-default
-RUN a2ensite nextcloud
+RUN a2ensite joomla
 RUN service apache2 restart
 
 CMD ["apache2ctl","-D","FOREGROUND"]
