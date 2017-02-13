@@ -1,0 +1,5 @@
+#! /bin/bash
+
+sed -i "s/FPMADDR/$PHPFPM_PORT_9000_TCP_ADDR/g"
+
+apache2ctl -D FOREGROUND
