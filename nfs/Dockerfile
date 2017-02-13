@@ -8,7 +8,7 @@ MAINTAINER "Alberto Andrades Gil" "alberto.andrades.gil@gmail.com"
 RUN apt update && apt upgrade -y
 
 #Install NFSv3 Server
-RUN apt install nfs-kernel-server
+RUN apt install nfs-kernel-server -y
 
 #Share /var/www to apache and php container
 RUN mkdir -p /srv/next_cloud; \
