@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sed 's/{{BACKEND_PORT_80_TCP_ADDR}}/'$BACKEND_PORT_80_TCP_ADDR'/ s/{{BACKEND_PORT_80_TCP_PORT}}/'$BACKEND_PORT_80_TCP_PORT'/' \
-     /etc/varnish/default.vcl.tpl > /etc/varnish/default.vcl
+sed -i "s/APACHE_PORT_80_TCP_ADDR/$APACHE_PORT_80_TCP_ADDR/g" /etc/varnish/default.vcl
 
-/usr/sbin/varnishd -D FOREGROUND
+varnishd -F -f /etc/varnish/default.vcl -s malloc,256m -a 0.0.0.0:6081
