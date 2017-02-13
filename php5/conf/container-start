@@ -1,0 +1,45 @@
+#! /bin/bash
+# Set container IP
+CONTAINER_IP=$(ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/')
+
+# This function checks initial configuration
+
+ICF=
+function initial_config () {
+
+    if [[ -e /initial_config ]]; then
+        ICF="true"
+    else
+        ICF="false"
+    fi
+}
+
+# PHP5-FPM configuration
+
+sed -i "s/#CONTAINER_IP/$CONTAINER_IP/" /etc/php5/fpm/pool.d/www.conf
+killall php5-fpm
+mkdir -p /var/www
+php5-fpm
+
+#service php5-fpm restart
+
+# Main
+
+initial_config
+
+if [[ "$ICF" = "true" ]]; then
+    /usr/sbin/php5-fpm
+fi
+
+if [[ "$ICF" = "false" ]]; then
+    /usr/sbin/php5-fpm &
+    sleep 5
+    SPID=$(pidof php5-fpm)
+    while [[ ! -z $SPID ]]; do
+        sleep 5
+        SPID=$(pidof php5-fpm)
+    done;
+fi
+
+exit 0
+
