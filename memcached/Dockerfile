@@ -13,8 +13,8 @@ MAINTAINER Alejandro Palomino García <alejandrodh570@gmail.com>
 # Update the default application repository sources list
 RUN apt-get update
 
-# Install apt-utils and Memcached
-RUN apt-get install -y apt-utils memcached
+# Install Memcached
+RUN apt-get install -y memcached
 
 # Port to expose
 EXPOSE 11211
