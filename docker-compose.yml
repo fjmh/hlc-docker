@@ -1,0 +1,43 @@
+---
+
+nginx:
+  build: nginx
+  links:
+    - apache
+  ports:
+    - "80:80"
+
+varnish:
+  build: moncayer
+  links:
+    - apache
+
+apache:
+  build: Apache
+  links:
+    - nfs
+
+nfs:
+  build: nfs
+  volumes:
+    - volnfs:/srv/next_cloud
+
+phpfpm:
+  build: php5
+  links:
+    - memcached
+    - nfs
+
+
+memcached:
+  build: memcached
+  links: 
+    - mariadb
+
+
+mariadb:
+  build: MariaDB
+  volumes:
+    - volmaria:/var/lib/mysql
+
+...
