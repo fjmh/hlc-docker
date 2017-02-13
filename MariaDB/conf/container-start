@@ -74,7 +74,7 @@ fi
 
 if [[ "$ICF" = "false" ]]; then
     /usr/bin/mysqld_safe &
-    sleep 5
+    sleep 10
     config_db
     SPID=$(pidof mysqld)
     while [[ ! -z $SPID ]]; do
