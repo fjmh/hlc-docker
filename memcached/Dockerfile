@@ -21,7 +21,7 @@ EXPOSE 11211
 
 # Default Memcached run command arguments
 # Change to limit memory when creating container
-CMD ["-m", "128"]
+CMD ["-u", "root", "-m", "128"]
 
 # Set the user to run Memcached daemon
 USER daemon
