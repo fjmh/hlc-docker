@@ -16,8 +16,11 @@ function initial_config () {
 
 # PHP5-FPM configuration
 
-sed -i 's/#CONTAINER_IP/$CONTAINER_IP/' /etc/php5/fpm/pool.d/www.conf
-service php5-fpm restart
+sed -i "s/#CONTAINER_IP/$CONTAINER_IP/" /etc/php5/fpm/pool.d/www.conf
+killall php5-fpm
+php5-fpm
+
+#service php5-fpm restart
 
 # Main
 
@@ -38,3 +41,4 @@ if [[ "$ICF" = "false" ]]; then
 fi
 
 exit 0
+
