@@ -19,12 +19,6 @@ RUN printf '#Change_IP:/var/www\t/var/www\tnfs\tdefaults,nofail,auto\t0\t0\n' >>
     mkdir -p /var/www;\
     mount -a
 
-#Download and deploy Joomla
-RUN wget https://downloads.joomla.org/cms/joomla3/3-6-5/joomla_3-6-5-stable-full_package-zip?format=zip\ 
-    mkdir -p /var/www/joomla;\
-    unzip joomla_3-6-5-stable-full_package-zip\?format=zip -d /var/www/joomla;\
-    chown -R www-data:www-data /var/www/joomla
-
 #Port to expose
 EXPOSE 9000
 
