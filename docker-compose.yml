@@ -14,19 +14,11 @@ varnish:
 
 apache:
   build: Apache
-  links:
-    - nfs
-
-nfs:
-  build: nfs
-  volumes:
-    - volnfs:/srv/next_cloud
 
 phpfpm:
   build: php5
   links:
     - memcached
-    - nfs
 
 memcached:
   build: memcached
