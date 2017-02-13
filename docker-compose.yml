@@ -32,11 +32,8 @@ mariadb:
   build: MariaDB
   volumes:
     - volmaria:/var/lib/mysql
-  environment:
-    - MARIA_DB_DATABASE=joomla
-    - MARIA_DB_USER=joomlauser
-    - MARIA_DB_ROOT_PASSWORD=asdasd
-    - MARIA_DB_USER_PASSWORD=asdasd
+  env_file:
+    - mariadb.env
 
 ...
 
