@@ -28,7 +28,6 @@ phpfpm:
     - memcached
     - nfs
 
-
 memcached:
   build: memcached
   links: 
