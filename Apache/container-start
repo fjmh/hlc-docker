@@ -1,5 +1,5 @@
 #! /bin/bash
 
-sed -i "s/FPMADDR/$PHPFPM_PORT_9000_TCP_ADDR/g"
+sed -i "s/FPMADDR/$PHPFPM_PORT_9000_TCP_ADDR/g" /etc/apache2/conf-available/php5-fpm.conf
 
 apache2ctl -D FOREGROUND
