@@ -11,9 +11,8 @@ RUN apt update && apt upgrade -y
 RUN apt install nfs-kernel-server
 
 #Share /var/www to apache and php container
-RUN mkdir -p /var/www; \
-    chown -R www-data:www-data /var/www; \ 
-    printf '/var/www\t*(rw,sync,no_subtree_check)\n' >> /etc/exports; \
+RUN mkdir -p /srv/next_cloud; \
+    printf '/srv/next_cloud\t*(rw,sync,no_subtree_check)\n' >> /etc/exports; \
     systemctl restart nfs-kernel-server.service; \ 
     exportfs -rav
 

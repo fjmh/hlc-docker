@@ -10,14 +10,13 @@ RUN apt update && apt upgrade -y
 #Install php5-fpm
 RUN apt install php5 php5-fpm php5-curl php5-mcrypt php5-mysql php5-memcached unzip -y
 
-#Configure php5-fpm to listen on eth0 IP's at port 9000
-RUN sed -ri 's/^listen[[:space:]]*=.*/listen = #Change_IP:9000/' /etc/php5/fpm/pool.d/www.conf;\
-    systemctl restart php5-fpm
+#Copy configuration files
+COPY ./conf/www.conf /etc/php5/fpm/pool.d/www.conf
+COPY ./conf/container-start /usr/local/bin/container-start
 
-#Mount remote NFS directory
-RUN printf '#Change_IP:/var/www\t/var/www\tnfs\tdefaults,nofail,auto\t0\t0\n' >> /etc/fstab;\ 
-    mkdir -p /var/www;\
-    mount -a
+RUN chmod 0550 /usr/local/bin/container-start; \
+    ln -s /usr/local/bin/container-start /docker-entrypoint; \
+    chmod 0550 /docker-entrypoint
 
 #Port to expose
 EXPOSE 9000
@@ -27,3 +26,6 @@ CMD ["-m", "256"]
 
 #User to run php5-fpm master process
 USER root
+
+#Entrypoint configuration
+ENTRYPOINT ["/docker-entrypoint"]
