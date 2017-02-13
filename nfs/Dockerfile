@@ -10,10 +10,9 @@ RUN apt update && apt upgrade -y
 #Install NFSv3 Server
 RUN apt install nfs-kernel-server -y
 
-#Share /var/www to apache and php container
+#Share /srv/next_cloud to apache and php container
 RUN mkdir -p /srv/next_cloud; \
-    printf '/srv/next_cloud\t*(rw,sync,no_subtree_check)\n' >> /etc/exports; \
-    systemctl restart nfs-kernel-server.service; \ 
+    printf '/srv/next_cloud\t*(rw,fsid=1,sync,no_subtree_check)\n' >> /etc/exports; \
     exportfs -rav
 
 #Port to expose
