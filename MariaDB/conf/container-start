@@ -1,0 +1,86 @@
+#! /bin/bash
+
+# This function checks initial configuration
+
+ICF=
+function initial_config () {
+
+    if [[ -e /initial_config ]]; then
+        ICF="true"
+    else
+        ICF="false"
+    fi
+}
+
+
+# database creation
+
+function config_db () {
+
+    # root password set
+    if [[ -z "$MARIA_DB_ROOT_PASSWORD" ]]; then
+        echo "No root password set. Exiting..."
+        exit 1
+    else
+        set -e
+        mysqladmin -u root password "$MARIA_DB_ROOT_PASSWORD"
+        echo "Enabling remote user access"
+        mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "CREATE USER 'root'@'%' IDENTIFIED BY '$MARIA_DB_ROOT_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;"
+        set +e
+    fi
+
+    # user creation (with password) and database privileges grant
+
+    if [[ ! -z "$MARIA_DB_USER" ]] && [[ ! -z "$MARIA_DB_USER_PASSWORD" ]]; then
+        set -e
+        mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "CREATE USER '$MARIA_DB_USER'@'localhost' IDENTIFIED BY '$MARIA_DB_USER_PASSWORD';"
+        mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "CREATE USER '$MARIA_DB_USER'@'%' IDENTIFIED BY '$MARIA_DB_USER_PASSWORD';"
+        
+        if [[ -z "$MARIA_DB_DATABASE" ]]; then
+            echo "No database name inserted. Exiting"
+            exit 1
+        else
+            mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "CREATE DATABASE $MARIA_DB_DATABASE; GRANT ALL PRIVILEGES ON $MARIA_DB_DATABASE.* TO $MARIA_DB_USER;"
+            mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $MARIA_DB_DATABASE.* TO '$MARIA_DB_USER'@'%';"
+            mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
+        fi
+        database_created="true"
+        set +e
+    fi
+
+
+    # If no user inserted, creating database as root
+
+    if [[ ! -z "$MARIA_DB_DATABASE" ]] && [[ "$database_created" != "true" ]]; then
+        set -e
+        mysql -u root -p"$MARIA_DB_ROOT_PASSWORD" -e "CREATE DATABASE $MARIA_DB_DATABASE;"
+        set +e
+    elif [[ -z "$MARIA_DB_DATABASE" ]]; then
+        echo "No database name inserted. Exiting"
+        exit 1
+    fi
+
+    touch /initial_config
+}
+
+
+# Main
+
+initial_config
+
+if [[ "$ICF" = "true" ]]; then
+    /usr/bin/mysqld_safe
+fi
+
+if [[ "$ICF" = "false" ]]; then
+    /usr/bin/mysqld_safe &
+    sleep 5
+    config_db
+    SPID=$(pidof mysqld)
+    while [[ ! -z $SPID ]]; do
+        sleep 5
+        SPID=$(pidof mysqld)
+    done;
+fi
+
+exit 0
