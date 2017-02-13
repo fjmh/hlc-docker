@@ -1,47 +1,46 @@
----
-
-nginx:
-  build: nginx
-  links:
-    - apache
-  ports:
-    - "80:80"
-
-varnish:
-  build: varnish
-  links:
-    - apache
-
-apache:
-  build: Apache
-  links:
-    - phpfpm
-  volumes:
-    - volweb:/var/www
-
-phpfpm:
-  build: php5
-  links:
-    - memcached
-  volumes:
-    - volweb:/var/www
-
-memcached:
-  build: memcached
-  links:
-    - mariadb
-
-
-mariadb:
-  build: MariaDB
-  volumes:
-    - volmaria:/var/lib/mysql
-  env_file:
-    - mariadb.env
-
+version: "3.0"
+  
+services:
+  
+  nginx:
+    build: nginx
+    links:
+      - apache
+    ports:
+      - "80:80"
+  
+  varnish:
+    build: varnish
+    links:
+      - apache
+  
+  apache:
+    build: Apache
+    links:
+      - phpfpm
+    volumes:
+      - volweb:/var/www
+  
+  phpfpm:
+    build: php5
+    links:
+      - memcached
+    volumes:
+      - volweb:/var/www
+  
+  memcached:
+    build: memcached
+    links:
+      - mariadb
+  
+  
+  mariadb:
+    build: MariaDB
+    volumes:
+      - volmaria:/var/lib/mysql
+    env_file:
+      - mariadb.env
+  
 volumes:
   volmaria:
   volweb:
-
-...
-
