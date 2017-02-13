@@ -16,7 +16,11 @@ function initial_config () {
 # database creation
 
 function config_db () {
+    
+    mariapid=$(pidof mysqld)
 
+    /usr/bin/mysqld_safe &
+    sleep 5
     # root password set
     if [[ -z "$MARIA_DB_ROOT_PASSWORD" ]]; then
         echo "No root password set. Exiting..."
@@ -73,8 +77,6 @@ if [[ "$ICF" = "true" ]]; then
 fi
 
 if [[ "$ICF" = "false" ]]; then
-    /usr/bin/mysqld_safe &
-    sleep 10
     config_db
     SPID=$(pidof mysqld)
     while [[ ! -z $SPID ]]; do
