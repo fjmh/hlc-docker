@@ -14,6 +14,8 @@ varnish:
 
 apache:
   build: Apache
+  links:
+    - phpfpm
 
 phpfpm:
   build: php5
@@ -22,7 +24,7 @@ phpfpm:
 
 memcached:
   build: memcached
-  links: 
+  links:
     - mariadb
 
 
@@ -32,3 +34,4 @@ mariadb:
     - volmaria:/var/lib/mysql
 
 ...
+
