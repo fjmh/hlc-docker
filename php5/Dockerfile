@@ -18,6 +18,14 @@ RUN chmod 0550 /usr/local/bin/container-start; \
     ln -s /usr/local/bin/container-start /docker-entrypoint; \
     chmod 0550 /docker-entrypoint
 
+#Cleaning container
+RUN apt-get clean && \
+    apt-get autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /build && \
+    rm -rf /tmp/* /var/tmp/* && \
+    rm -rf /var/lib/apt/lists/* 
+
 #Port to expose
 EXPOSE 9000
 
