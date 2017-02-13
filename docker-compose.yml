@@ -39,5 +39,9 @@ mariadb:
   env_file:
     - mariadb.env
 
+volumes:
+  volmaria:
+  volweb:
+
 ...
 
