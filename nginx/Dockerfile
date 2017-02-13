@@ -12,7 +12,7 @@ RUN apt-get remove; \
 
 COPY ./nginx.conf /etc/nginx/sites-available/default
 
-RUN chmod 0660 /etc/nginx/sites-availabe/default
+RUN chmod 0660 /etc/nginx/sites-available/default
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
