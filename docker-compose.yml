@@ -16,11 +16,15 @@ apache:
   build: Apache
   links:
     - phpfpm
+  volumes:
+    - volweb:/var/www
 
 phpfpm:
   build: php5
   links:
     - memcached
+  volumes:
+    - volweb:/var/www
 
 memcached:
   build: memcached
