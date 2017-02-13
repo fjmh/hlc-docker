@@ -16,14 +16,8 @@ function initial_config () {
 
 # PHP5-FPM configuration
 
-sed -i 's/#CONTAINER_IP/$CONTAINER_IP/' /etc/php5/fpm/pool.d/www.conf
-systemctl restart php5-fpm
-
-#Mount remote NFS directory
-printf 'nfs:/var/www\t/var/www\tnfs\tdefaults,nofail,auto\t0\t0\n' >> /etc/fstab
-mkdir -p /var/www
-mount -a
-
+sed -i "s/#CONTAINER_IP/$CONTAINER_IP/" /etc/php5/fpm/pool.d/www.conf
+service php5-fpm restart
 
 # Main
 

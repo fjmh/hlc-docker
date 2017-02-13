@@ -8,7 +8,7 @@ MAINTAINER "Alberto Andrades Gil" "alberto.andrades.gil@gmail.com"
 RUN apt update && apt upgrade -y
 
 #Install php5-fpm
-RUN apt install php5 php5-fpm php5-curl php5-mcrypt php5-mysql php5-memcached unzip -y
+RUN apt install php5 php5-fpm php5-curl php5-mcrypt php5-mysql php5-memcached -y
 
 #Copy configuration files
 COPY ./conf/www.conf /etc/php5/fpm/pool.d/www.conf
