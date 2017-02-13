@@ -15,7 +15,7 @@ COPY joomla.conf /etc/apache2/sites-available/
 RUN a2dissite 000-default
 RUN a2ensite joomla
 RUN service apache2 restart
-RUN ln -s /usr/local/bin/container-start /entrypoint
+RUN chmod +x /usr/local/bin/container-start; ln -s /usr/local/bin/container-start /entrypoint
 
 
 ENTRYPOINT ["/entrypoint"]
