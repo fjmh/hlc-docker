@@ -6,7 +6,7 @@ services:
     build: nginx
     networks:
       hlc-docker:
-        ipv4_address: 192.168.250.1
+        ipv4_address: 192.168.250.10
     links:
       - apache
     ports:
@@ -16,7 +16,7 @@ services:
     build: varnish
     networks:
       hlc-docker:
-        ipv4_address: 192.168.250.2
+        ipv4_address: 192.168.250.20
     links:
       - apache
   
@@ -24,7 +24,7 @@ services:
     build: Apache
     networks:
       hlc-docker:
-        ipv4_address: 192.168.250.3
+        ipv4_address: 192.168.250.30
     links:
       - phpfpm
     volumes:
@@ -34,7 +34,7 @@ services:
     build: php5
     networks:
       hlc-docker:
-        ipv4_address: 192.168.250.4
+        ipv4_address: 192.168.250.40
     links:
       - memcached
       - mariadb
@@ -45,7 +45,7 @@ services:
     build: memcached
     networks:
       hlc-docker:
-        ipv4_address: 192.168.250.5
+        ipv4_address: 192.168.250.50
     links:
       - mariadb
   
@@ -54,7 +54,7 @@ services:
     build: MariaDB
     networks:
       hlc-docker:
-        ipv4_address: 192.168.250.6
+        ipv4_address: 192.168.250.60
     volumes:
       - volmaria:/var/lib/mysql
     env_file:
