@@ -1,6 +1,6 @@
 #! /bin/bash
 # Set container IP
-CONTAINER_IP=$(ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/')
+#CONTAINER_IP=$(ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/')
 
 # This function checks initial configuration
 
@@ -16,7 +16,7 @@ function initial_config () {
 
 # PHP5-FPM configuration
 
-sed -i "s/#CONTAINER_IP/$CONTAINER_IP/" /etc/php5/fpm/pool.d/www.conf
+#sed -i "s/#CONTAINER_IP/$CONTAINER_IP/" /etc/php5/fpm/pool.d/www.conf
 killall php5-fpm
 mkdir -p /var/www
 php5-fpm

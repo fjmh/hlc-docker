@@ -16,7 +16,7 @@ RUN a2dissite 000-default
 RUN a2ensite joomla
 #RUN service apache2 restart
 RUN chmod +x /usr/local/bin/container-start; ln -s /usr/local/bin/container-start /entrypoint
-
+EXPOSE 80
 
 ENTRYPOINT ["/entrypoint"]
 #CMD ["apache2ctl","-D","FOREGROUND"]

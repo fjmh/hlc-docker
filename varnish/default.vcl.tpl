@@ -14,7 +14,7 @@ vcl 4.0;
 
 # Default backend definition. Set this to point to your content server.
 backend default {
-    .host = "APACHE_PORT_80_TCP_ADDR";
+    .host = "192.168.250.3";
     .port = "80";
 }
 
