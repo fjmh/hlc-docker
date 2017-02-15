@@ -20,3 +20,5 @@ RUN chmod +x /usr/local/bin/container-start; ln -s /usr/local/bin/container-star
 
 ENTRYPOINT ["/entrypoint"]
 #CMD ["apache2ctl","-D","FOREGROUND"]
+
+EXPOSE 80
