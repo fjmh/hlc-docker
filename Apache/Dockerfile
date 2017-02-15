@@ -2,7 +2,7 @@ from debian
 MAINTAINER Elizabeth Moreno Begines
 
 COPY sources.list /etc/apt/sources.list
-RUN apt-get update && apt-get install apache2 libapache2-mod-fastcgi wget unzip -y
+RUN apt-get update && apt-get install apache2 libapache2-mod-fastcgi wget unzip dnsutils -y
 COPY php5-fpm.conf /etc/apache2/conf-available/
 COPY container-start /usr/local/bin/container-start
 RUN a2enmod fastcgi actions
@@ -16,7 +16,7 @@ RUN a2dissite 000-default
 RUN a2ensite joomla
 #RUN service apache2 restart
 RUN chmod +x /usr/local/bin/container-start; ln -s /usr/local/bin/container-start /entrypoint
-EXPOSE 80
+
 
 ENTRYPOINT ["/entrypoint"]
 #CMD ["apache2ctl","-D","FOREGROUND"]

@@ -3,7 +3,7 @@ FROM debian:latest
 MAINTAINER fjmh "fjm.hidalgo@gmail.com"
 
 RUN apt update && \
-    apt install -y varnish && \
+    apt install -y varnish dnsutils && \
     apt-get clean && \
     apt-get autoremove
 
