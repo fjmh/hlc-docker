@@ -1,26 +1,15 @@
-# Docker's container PHP-FPM
+# Docker compose of Joomla CMS
 
-### English
+### Requirements:
 
-You can run this Docker container to get a PHP listener (Port 9000 TCP):
-First build an image:
-```
-docker build -t phpfpm:v1 .
-```
+Docker version: 1.13.1
 
-To run:
-```
-docker run --name phpfpm -t phpfpm:v1 
-```
+Docker compose: 1.10.0
 
-### Español
-Este contenedor de Docker permite procesador codigo PHP remotamente. El listener se ejecuta en el puerto 9000.
-Primero se compone la imagen:
+### How to:
+To run this compose we recommend to ensure is free your 80 port.
 ```
-docker build -t phpfpm:v1 .         
-```
-Después se ejecuta el contenedor
-```
-docker run --name phpfpm -td phpfpm:v1
+docker-compose up
 ```
 
+If you do any change, you should do a full cleaning of this scenario (containers, images and volumes).
