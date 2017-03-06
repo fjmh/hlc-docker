@@ -6,7 +6,7 @@ services:
   nginx:
     build: nginx
     links:
-      - apache:apache
+      - varnish:varnish
     ports:
       - "80:80"
   
