@@ -1,15 +1,18 @@
-# Docker compose of Joomla CMS
+# Docker Compose for Joomla CMS
 
-### Requirements:
+### Prerequisites
 
-Docker version: 1.13.1
+To run this application you need
 
-Docker compose: 1.10.0
+Docker version: >= 1.13.1
 
-### How to:
-To run this compose we recommend to ensure is free your 80 port.
+Docker compose: >= 1.10.0
+
+
+### How to
+Before running this compose ensure your port 80 is available.
 ```
-docker-compose up
+$ docker-compose up
 ```
 
-If you do any change, you should do a full cleaning of this scenario (containers, images and volumes).
+Changes to this compose are not automatically applied. You have to prune and redeploy the compose with all the components (containers, images and volumes). 
